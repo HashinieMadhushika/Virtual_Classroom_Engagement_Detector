@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+
+# Large local datasets
+facial-emotion-recognition-dataset/
+data/
+
+# Large model binaries
+artifacts/*.joblib
