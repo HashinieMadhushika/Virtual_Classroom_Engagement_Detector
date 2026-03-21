@@ -1,0 +1,18 @@
+{
+  "best_model_name": "Random Forest (balanced train)",
+  "target_size": [
+    64,
+    64
+  ],
+  "labels": [
+    "angry",
+    "disgust",
+    "fear",
+    "happy",
+    "neutral",
+    "sad",
+    "surprise"
+  ],
+  "feature_type": "HOG",
+  "face_detection": "HaarCascade"
+}
