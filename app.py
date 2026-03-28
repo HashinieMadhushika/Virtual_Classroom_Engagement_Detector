@@ -8,8 +8,8 @@ import streamlit as st
 from PIL import Image
 from skimage.feature import hog
 
-st.set_page_config(page_title="Emotion Detector Demo", page_icon="🎭", layout="centered")
-st.title("🎭 Facial Emotion Recognition Demo")
+st.set_page_config(page_title="Virtual Classroom Engagement Detector", page_icon="🎭", layout="centered")
+st.title("🎭 Virtual Classroom Engagement Detector")
 st.caption("Day 7 UI - SVM / Random Forest inference using HaarCascade + HOG")
 
 ROOT = Path(__file__).resolve().parent
@@ -59,9 +59,17 @@ def preprocess_face_for_hog(face_bgr, target_size):
     return resized, features
 
 
+def get_engagement_status(predicted_emotion, engagement_mapping):
+    for status, emotions in engagement_mapping.items():
+        if predicted_emotion in emotions:
+            return status
+    return "Unknown" # Should not happen if mapping is complete
+
+
 model, metadata = load_artifacts()
 labels = metadata["labels"]
 target_size = metadata.get("target_size", [64, 64])
+engagement_mapping = metadata.get("engagement_mapping", {})
 
 st.write(f"Loaded model: **{metadata.get('best_model_name', 'Unknown')}**")
 
@@ -102,6 +110,13 @@ if uploaded_file is not None:
     st.image(processed_face, caption=f"Resized to {target_size[0]}x{target_size[1]}")
 
     st.success(f"Predicted Emotion: **{pred_label}**")
+
+    # Determine and display engagement status
+    if engagement_mapping:
+        engagement_status = get_engagement_status(pred_label, engagement_mapping)
+        st.info(f"Engagement Status: **{engagement_status}**")
+    else:
+        st.warning("Engagement mapping not found in metadata. Cannot determine engagement status.")
 
 st.markdown("---")
 st.caption("Tip: Run with `streamlit run app.py`")

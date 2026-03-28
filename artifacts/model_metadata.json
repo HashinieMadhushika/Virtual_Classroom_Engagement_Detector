@@ -14,5 +14,20 @@
     "surprise"
   ],
   "feature_type": "HOG",
-  "face_detection": "HaarCascade"
+  "face_detection": "HaarCascade",
+  "engagement_mapping": {
+    "Engaged": [
+      "happy",
+      "surprise"
+    ],
+    "Neutral": [
+      "neutral"
+    ],
+    "Not Engaged": [
+      "angry",
+      "disgust",
+      "fear",
+      "sad"
+    ]
+  }
 }
